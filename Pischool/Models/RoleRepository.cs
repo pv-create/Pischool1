@@ -4,6 +4,7 @@ using Pischool.Data;
 
 namespace Pischool.Models
 {
+
     public class RoleRepository
     {
         private ApplicationDbContext _context;//для связи с бд
@@ -16,10 +17,21 @@ namespace Pischool.Models
             _role = role;
         }
 
-        public  List<IdentityRole> GetRole()
+        public List<IdentityRole> GetRole()
         {
-            _role.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
-            return _role.Roles.ToList();
+            return _context.Roles.ToList();
+        }
+
+        public IdentityRole GetRoleById(string Id)
+        {
+            var role= GetRole().FirstOrDefault(r => r.Id == Id);
+            return role;
+        }
+
+        public void DeleteRole(string Id)
+        {
+            var role = _context.Roles.FirstOrDefault(r => r.Id == Id);
+            _context.Roles.Remove(role);
         }
     }
 }

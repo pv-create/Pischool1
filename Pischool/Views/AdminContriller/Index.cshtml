@@ -20,7 +20,8 @@
 
     <table class="table">
   <thead>
-     Пользователи
+     Пользователи<br/>
+     <button class="btn btn-primary" type="submit">Добавить нового</button>
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Email</th>
@@ -41,6 +42,32 @@
        }
   </tbody>
 </table>
+
+<div style="width: 50%;">
+    <table class="table">
+  <thead>
+     Роли
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Изменить</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var b in  ViewBag.Role)
+      {
+         <tr>
+            <td>@b.Id</td>
+            <td>@b.Name</td>
+            <td><button class="btn btn-primary" type="submit">Изменить</button></td>
+            <td><button class="btn btn-primary" type="submit">Удалить</button></td>
+        </tr>
+       }
+  </tbody>
+</table>
+</div>
+
 
 
 

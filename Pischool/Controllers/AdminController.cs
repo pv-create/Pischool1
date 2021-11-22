@@ -24,22 +24,43 @@ namespace Pischool.Controllers
         public IActionResult Index()
         {
             var users = _userRepository.GetUsers();
+
             var roles = _roleRepository.GetRole();
           
-            ViewBag.Users = users;
+            ViewBag.Users = users;      
 
             ViewBag.Role = roles;
-
+                
             return View(users);
         }
 
-        public IActionResult GetEmails()
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public IActionResult ConfirmDeleteRole(string Id)
         {
-            var EmailsList=_userRepository.GetEmails();
-            ViewBag.Emails = EmailsList;
-            return View(EmailsList);
+            if(Id!=null)
+            {
+                var role= _roleRepository.GetRoleById(Id);
+                return View(role);
+            }
+            return NotFound();
         }
 
+        [HttpPost]
+        public IActionResult DeleteRole(string Id)
+        {
+            if(Id!=null)
+            {
+                var role = _roleRepository.GetRoleById(Id);
+                if(role!=null)
+                {
+                    _roleRepository.DeleteRole(Id);
+                    return RedirectToAction("Index");
+                }
+            }
 
+            return NotFound();
+        }
     }
 }
